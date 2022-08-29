@@ -1,0 +1,149 @@
+buildscript {
+    repositories {
+        mavenCentral()
+        maven { url = 'https://maven.minecraftforge.net' }
+        maven {
+            name "Sponge"
+            url "https://repo.spongepowered.org/repository/maven-public/"
+            content { includeGroup "org.spongepowered" }
+        }
+    }
+    dependencies {
+        classpath group: 'net.minecraftforge.gradle', name: 'ForgeGradle', version: '5.1.+', changing: true
+        classpath group: 'org.spongepowered', name: 'mixingradle', version: '0.7-SNAPSHOT'
+    }
+}
+apply plugin: 'net.minecraftforge.gradle'
+apply plugin: 'maven-publish'
+apply plugin: 'org.spongepowered.mixin'
+
+version = '1.2'
+group = 'com.bisectstudios.mods' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
+archivesBaseName = 'ProletariaTweaks'
+
+java.toolchain.languageVersion = JavaLanguageVersion.of(8)
+
+println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
+
+mixin {
+    add sourceSets.main, "proletaria.refmap.json"
+
+    config "proletaria.mixins.json"
+}
+
+minecraft {
+    mappings channel: 'snapshot', version: '20201028-1.16.3'
+    runs {
+        client {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            property 'mixin.env.disableRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+
+            mods {
+                proletariatweaks {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        server {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            //property 'mixin.env.disableRefMap', 'true'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+
+            mods {
+                proletariatweaks {
+                    source sourceSets.main
+                }
+            }
+        }
+
+        data {
+            workingDirectory project.file('run')
+            property 'forge.logging.markers', 'REGISTRIES'
+            property 'forge.logging.console.level', 'debug'
+            //property 'mixin.env.disableRefMap', 'true'
+            property 'mixin.env.remapRefMap', 'true'
+            property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
+
+            args '--mod', 'proletariatweaks', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+
+            mods {
+                proletariatweaks {
+                    source sourceSets.main
+                }
+            }
+        }
+    }
+}
+
+sourceSets.main.resources { srcDir 'src/generated/resources' }
+
+repositories {
+    maven {
+        name "Curse Maven"
+        url "https://www.cursemaven.com"
+    }
+    maven {
+        name 'hellfirepvp maven'
+        url 'https://maven.hellfiredev.net/'
+    }
+    maven {
+        name 'Curios'
+        url = "https://maven.theillusivec4.top/"
+    }
+    maven {
+        name 'Patchouli'
+        url 'https://maven.blamejared.com'
+    }
+}
+
+dependencies {
+    minecraft 'net.minecraftforge:forge:1.16.5-36.2.34'
+
+    if (System.getProperty("idea.sync.active") != "true") {
+        annotationProcessor 'org.spongepowered:mixin:0.8.5:processor'
+    }
+
+    runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.5-4.0.8.2")
+    compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.5-4.0.8.2:api")
+    implementation fg.deobf("curse.maven:astral-sorcery-241721:3156477")
+    implementation fg.deobf("curse.maven:bloodmagic-224791:3870899")
+    implementation fg.deobf("curse.maven:observerlib-316833:3333962")
+    //runtimeOnly fg.deobf("curse.maven:patchouli-306770:3459118")
+    runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53")
+}
+
+jar {
+    manifest {
+        attributes([
+            "Specification-Title": "proletariatweaks",
+            "Specification-Vendor": "proletariatweakssareus",
+            "Specification-Version": "1", // We are version 1 of ourselves
+            "Implementation-Title": project.name,
+            "Implementation-Version": "${version}",
+            "Implementation-Vendor" :"proletariatweakssareus",
+            "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
+        ])
+    }
+}
+
+jar.finalizedBy('reobfJar')
+
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            artifact jar
+        }
+    }
+    repositories {
+        maven {
+            url "file:///${project.projectDir}/mcmodsrepo"
+        }
+    }
+}
