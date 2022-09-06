@@ -29,27 +29,27 @@ public class ModConfigs {
         builder.push("bloodmagic");
         glowstoneCaps = builder.comment("Glowstone Cap Blocks")
             .defineListAllowEmpty(Lists.newArrayList("glowstone"),
-                () -> getDefaultComponentList(ComponentType.GLOWSTONE), ModConfigs::isResourceLocation
+                () -> getDefaultComponentList(ComponentType.GLOWSTONE), ModConfigs::isValidBlockString
             );
 
         bloodstoneCaps = builder.comment("Bloodstone Cap Blocks")
             .defineListAllowEmpty(Lists.newArrayList("bloodstone"),
-                () -> getDefaultComponentList(ComponentType.BLOODSTONE), ModConfigs::isResourceLocation
+                () -> getDefaultComponentList(ComponentType.BLOODSTONE), ModConfigs::isValidBlockString
             );
 
         beacons = builder.comment("Beacon Cap Blocks")
             .defineListAllowEmpty(Lists.newArrayList("beacons"),
-                () -> getDefaultComponentList(ComponentType.BEACON), ModConfigs::isResourceLocation
+                () -> getDefaultComponentList(ComponentType.BEACON), ModConfigs::isValidBlockString
             );
 
         crystals = builder.comment("Crystal Cap Blocks")
             .defineListAllowEmpty(Lists.newArrayList("crystal"),
-                () -> getDefaultComponentList(ComponentType.CRYSTAL), ModConfigs::isResourceLocation
+                () -> getDefaultComponentList(ComponentType.CRYSTAL), ModConfigs::isValidBlockString
             );
 
         bloodrunes = builder.comment("Bloodrune Blocks")
             .defineListAllowEmpty(Lists.newArrayList("bloodrune"),
-                () -> getDefaultComponentList(ComponentType.BLOODRUNE), ModConfigs::isResourceLocation
+                () -> getDefaultComponentList(ComponentType.BLOODRUNE), ModConfigs::isValidBlockString
             );
 
         builder.pop();
@@ -91,12 +91,22 @@ public class ModConfigs {
         return list;
     }
 
-    private static boolean isResourceLocation(Object obj) {
+    private static boolean isValidBlockString(Object obj) {
         if (!(obj instanceof String)) {
             return false;
         }
+        String blockString = (String) obj;
+        int propsIndex = blockString.indexOf('[');
+        if (propsIndex == -1) {
+            return isResourceLocation(blockString);
+        }
+
+        return isResourceLocation(blockString.substring(0, propsIndex));
+    }
+
+    private static boolean isResourceLocation(String str) {
         try {
-            new ResourceLocation((String) obj);
+            new ResourceLocation(str);
             return true;
         } catch (Exception e) {
             return false;

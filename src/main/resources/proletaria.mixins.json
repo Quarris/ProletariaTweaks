@@ -4,6 +4,7 @@
     "compatibilityLevel": "JAVA_8",
     "package": "com.bisectstudios.mods.proletaria.mixins",
     "mixins": [
+        "BloodMagicCorePluginMixin",
         "EventHandlerAutoLinkMixin",
         "OceanMonumentPiecesMonumentCoreMixin"
     ],
