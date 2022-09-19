@@ -2,9 +2,14 @@ package com.bisectstudios.mods.proletaria;
 
 import com.bisectstudios.mods.proletaria.compat.BloodMagicCompat;
 import com.bisectstudios.mods.proletaria.configs.ModConfigs;
+import com.bisectstudios.mods.proletaria.recipes.ingredients.WeakNBTIngredient;
+import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraftforge.common.ForgeConfigSpec;
+import net.minecraftforge.common.crafting.CraftingHelper;
+import net.minecraftforge.event.RegistryEvent;
 import net.minecraftforge.eventbus.api.EventPriority;
 import net.minecraftforge.eventbus.api.IEventBus;
+import net.minecraftforge.eventbus.api.SubscribeEvent;
 import net.minecraftforge.fml.ModLoadingContext;
 import net.minecraftforge.fml.common.Mod;
 import net.minecraftforge.fml.config.ModConfig;
@@ -19,11 +24,18 @@ public class ModRoot {
 
         IEventBus modBus = FMLJavaModLoadingContext.get().getModEventBus();
         modBus.addListener(EventPriority.LOWEST, this::onLoadCompleted);
+        modBus.register(this);
 
         ModContent.init();
     }
 
     private void onLoadCompleted(FMLLoadCompleteEvent event) {
         BloodMagicCompat.onLoadCompleted();
+    }
+
+    @SubscribeEvent //ModBus, can't use addListener due to nested genetics.
+    public void registerRecipeSerialziers(RegistryEvent.Register<IRecipeSerializer<?>> event) {
+        CraftingHelper.register(ModRef.res("weak_nbt"), WeakNBTIngredient.Serializer.INSTANCE);
+
     }
 }
