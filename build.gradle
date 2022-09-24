@@ -19,16 +19,16 @@ apply plugin: 'org.spongepowered.mixin'
 
 version = '1.4'
 group = 'com.bisectstudios.mods' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
-archivesBaseName = 'ProletariaTweaks'
+archivesBaseName = 'StageCraftTweaks'
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(8)
 
 println('Java: ' + System.getProperty('java.version') + ' JVM: ' + System.getProperty('java.vm.version') + '(' + System.getProperty('java.vendor') + ') Arch: ' + System.getProperty('os.arch'))
 
 mixin {
-    add sourceSets.main, "proletaria.refmap.json"
+    add sourceSets.main, "stagecraft.refmap.json"
 
-    config "proletaria.mixins.json"
+    config "stagecraft.mixins.json"
 }
 
 minecraft {
@@ -42,7 +42,7 @@ minecraft {
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
 
             mods {
-                proletariatweaks {
+                stagecraft {
                     source sourceSets.main
                 }
             }
@@ -57,7 +57,7 @@ minecraft {
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
 
             mods {
-                proletariatweaks {
+                stagecraft {
                     source sourceSets.main
                 }
             }
@@ -71,10 +71,10 @@ minecraft {
             property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
 
-            args '--mod', 'proletariatweaks', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
+            args '--mod', 'stagecraft', '--all', '--output', file('src/generated/resources/'), '--existing', file('src/main/resources/')
 
             mods {
-                proletariatweaks {
+                stagecraft {
                     source sourceSets.main
                 }
             }
@@ -122,12 +122,12 @@ dependencies {
 jar {
     manifest {
         attributes([
-            "Specification-Title": "proletariatweaks",
-            "Specification-Vendor": "proletariatweakssareus",
+            "Specification-Title": "stagecraft",
+            "Specification-Vendor": "stagecraftsareus",
             "Specification-Version": "1", // We are version 1 of ourselves
             "Implementation-Title": project.name,
             "Implementation-Version": "${version}",
-            "Implementation-Vendor" :"proletariatweakssareus",
+            "Implementation-Vendor" :"stagecraftsareus",
             "Implementation-Timestamp": new Date().format("yyyy-MM-dd'T'HH:mm:ssZ")
         ])
     }

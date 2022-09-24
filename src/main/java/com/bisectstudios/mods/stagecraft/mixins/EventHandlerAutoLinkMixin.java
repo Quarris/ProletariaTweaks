@@ -1,6 +1,6 @@
-package com.bisectstudios.mods.proletaria.mixins;
+package com.bisectstudios.mods.stagecraft.mixins;
 
-import com.bisectstudios.mods.proletaria.ModContent;
+import com.bisectstudios.mods.stagecraft.ModContent;
 import hellfirepvp.astralsorcery.common.event.handler.EventHandlerAutoLink;
 import hellfirepvp.astralsorcery.common.starlight.WorldNetworkHandler;
 import net.minecraft.block.Block;

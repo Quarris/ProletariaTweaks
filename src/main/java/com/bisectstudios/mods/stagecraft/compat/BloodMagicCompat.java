@@ -1,7 +1,7 @@
-package com.bisectstudios.mods.proletaria.compat;
+package com.bisectstudios.mods.stagecraft.compat;
 
-import com.bisectstudios.mods.proletaria.ModRef;
-import com.bisectstudios.mods.proletaria.configs.ModConfigs;
+import com.bisectstudios.mods.stagecraft.ModRef;
+import com.bisectstudios.mods.stagecraft.configs.ModConfigs;
 import com.mojang.brigadier.StringReader;
 import com.mojang.brigadier.exceptions.CommandSyntaxException;
 import net.minecraft.block.BlockState;
@@ -24,7 +24,6 @@ public class BloodMagicCompat {
         registerAltarCaps(ComponentType.CRYSTAL, ModConfigs.crystals.get());
     }
 
-    // If ever need to parse block states. Look at SetBlockCommand and BlockStateParser
     private static void registerAltarCaps(ComponentType type, List<? extends String> configBlocks) {
         configBlocks.stream().forEach(stringBlock -> {
             try {
@@ -45,12 +44,14 @@ public class BloodMagicCompat {
                             }
                         ).collect(Collectors.toList());
 
-                    validStates.forEach(state ->
-                        IBloodMagicAPI.INSTANCE.getValue().registerAltarComponent(state, type.name())
+                    validStates.forEach(state -> {
+                            ModRef.LOGGER.debug("Registering state '{}' for component '{}'", state, type.name());
+                            IBloodMagicAPI.INSTANCE.getValue().registerAltarComponent(state, type.name());
+                        }
                     );
                 }
             } catch (CommandSyntaxException e) {
-                ModRef.LOGGER.warn("Could not parse block {}", stringBlock, e);
+                ModRef.LOGGER.error("Could not parse block {}", stringBlock, e);
             }
         });
     }

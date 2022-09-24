@@ -1,4 +1,4 @@
-package com.bisectstudios.mods.proletaria.recipes.ingredients;
+package com.bisectstudios.mods.stagecraft.recipes.ingredients;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;

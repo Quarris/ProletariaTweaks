@@ -1,8 +1,8 @@
-package com.bisectstudios.mods.proletaria;
+package com.bisectstudios.mods.stagecraft;
 
-import com.bisectstudios.mods.proletaria.compat.BloodMagicCompat;
-import com.bisectstudios.mods.proletaria.configs.ModConfigs;
-import com.bisectstudios.mods.proletaria.recipes.ingredients.WeakNBTIngredient;
+import com.bisectstudios.mods.stagecraft.compat.BloodMagicCompat;
+import com.bisectstudios.mods.stagecraft.configs.ModConfigs;
+import com.bisectstudios.mods.stagecraft.recipes.ingredients.WeakNBTIngredient;
 import net.minecraft.item.crafting.IRecipeSerializer;
 import net.minecraftforge.common.ForgeConfigSpec;
 import net.minecraftforge.common.crafting.CraftingHelper;

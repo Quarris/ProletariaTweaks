@@ -1,4 +1,4 @@
-package com.bisectstudios.mods.proletaria;
+package com.bisectstudios.mods.stagecraft;
 
 import net.minecraft.block.Block;
 import net.minecraft.tags.BlockTags;

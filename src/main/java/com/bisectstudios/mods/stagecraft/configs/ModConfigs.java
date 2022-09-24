@@ -1,4 +1,4 @@
-package com.bisectstudios.mods.proletaria.configs;
+package com.bisectstudios.mods.stagecraft.configs;
 
 import com.google.common.collect.Lists;
 import net.minecraft.block.Blocks;

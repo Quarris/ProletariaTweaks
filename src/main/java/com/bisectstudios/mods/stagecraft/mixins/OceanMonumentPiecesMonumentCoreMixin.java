@@ -1,7 +1,7 @@
-package com.bisectstudios.mods.proletaria.mixins;
+package com.bisectstudios.mods.stagecraft.mixins;
 
-import com.bisectstudios.mods.proletaria.ModRef;
-import com.bisectstudios.mods.proletaria.configs.ModConfigs;
+import com.bisectstudios.mods.stagecraft.ModRef;
+import com.bisectstudios.mods.stagecraft.configs.ModConfigs;
 import net.minecraft.block.Block;
 import net.minecraft.block.BlockState;
 import net.minecraft.block.Blocks;
