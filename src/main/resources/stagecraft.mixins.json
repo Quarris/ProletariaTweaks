@@ -11,5 +11,5 @@
     "injectors": {
         "defaultRequire": 1
     },
-    "refmap": "proletaria.refmap.json"
+    "refmap": "stagecraft.refmap.json"
 }
