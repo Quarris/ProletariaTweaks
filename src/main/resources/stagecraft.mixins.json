@@ -5,6 +5,7 @@
     "package": "com.bisectstudios.mods.stagecraft.mixins",
     "mixins": [
         "BloodMagicCorePluginMixin",
+        "EndPodiumFeatureMixin",
         "EventHandlerAutoLinkMixin",
         "OceanMonumentPiecesMonumentCoreMixin"
     ],

@@ -17,7 +17,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.4.1'
+version = '1.5.0'
 group = 'com.bisectstudios.mods' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'StageCraftTweaks'
 
@@ -85,6 +85,9 @@ minecraft {
 sourceSets.main.resources { srcDir 'src/generated/resources' }
 
 repositories {
+    flatDir {
+        dir 'libs'
+    }
     maven {
         name "Curse Maven"
         url "https://www.cursemaven.com"
@@ -115,6 +118,8 @@ dependencies {
     implementation fg.deobf("curse.maven:astral-sorcery-241721:3156477")
     implementation fg.deobf("curse.maven:bloodmagic-224791:3870899")
     implementation fg.deobf("curse.maven:observerlib-316833:3333962")
+    implementation fg.deobf("blank:betterendforge-1.16.5:2.5")
+    //implementation fg.deobf("curse.maven:betterend-428877:3467948")
     //runtimeOnly fg.deobf("curse.maven:patchouli-306770:3459118")
     runtimeOnly fg.deobf("vazkii.patchouli:Patchouli:1.16.4-53")
 }
