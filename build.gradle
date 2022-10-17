@@ -17,7 +17,7 @@ apply plugin: 'net.minecraftforge.gradle'
 apply plugin: 'maven-publish'
 apply plugin: 'org.spongepowered.mixin'
 
-version = '1.5.0'
+version = '1.6.0'
 group = 'com.bisectstudios.mods' // http://maven.apache.org/guides/mini/guide-naming-conventions.html
 archivesBaseName = 'StageCraftTweaks'
 
@@ -38,7 +38,8 @@ minecraft {
             workingDirectory project.file('run')
             property 'forge.logging.markers', 'REGISTRIES'
             property 'forge.logging.console.level', 'debug'
-            property 'mixin.env.disableRefMap', 'true'
+            //property 'mixin.env.disableRefMap', 'true'
+            property 'mixin.env.remapRefMap', 'true'
             property 'mixin.env.refMapRemappingFile', "${buildDir}/createSrgToMcp/output.srg"
 
             mods {
@@ -115,6 +116,8 @@ dependencies {
 
     runtimeOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.5-4.0.8.2")
     compileOnly fg.deobf("top.theillusivec4.curios:curios-forge:1.16.5-4.0.8.2:api")
+    implementation fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:1.16.5-5.1.0-148")
+    compileOnly fg.deobf("blusunrize.immersiveengineering:ImmersiveEngineering:1.16.5-5.1.0-148:api")
     implementation fg.deobf("curse.maven:astral-sorcery-241721:3156477")
     implementation fg.deobf("curse.maven:bloodmagic-224791:3870899")
     implementation fg.deobf("curse.maven:observerlib-316833:3333962")
