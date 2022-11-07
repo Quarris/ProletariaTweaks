@@ -53,7 +53,7 @@ public class EndPodiumFeatureMixin {
                 structure = server.getTemplateManager().getTemplateDefaulted(structureId);
             }
             Vector3i size = structure.getSize();
-            blockPos = blockPos.add(-(size.getX() >> 1), -1, -(size.getZ() >> 1));
+            blockPos = blockPos.add(-(size.getX() >> 1), -16, -(size.getZ() >> 1));
             structure.func_237146_a_(level, blockPos, blockPos, new PlacementSettings(), random, 2);
             info.setReturnValue(true);
             info.cancel();
