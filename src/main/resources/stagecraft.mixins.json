@@ -7,8 +7,11 @@
     "BloodMagicCorePluginMixin",
     "EndPodiumFeatureMixin",
     "EventHandlerAutoLinkMixin",
+    "GeneratorOptionsMixin",
     "IEEventHandlerMixin",
-    "OceanMonumentPiecesMonumentCoreMixin"
+    "JsonConfigKeyMixin",
+    "OceanMonumentPiecesMonumentCoreMixin",
+    "WorldDataAPIAccessor"
   ],
   "injectors": {
     "defaultRequire": 1

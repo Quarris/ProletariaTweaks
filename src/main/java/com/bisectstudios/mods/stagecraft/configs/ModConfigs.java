@@ -21,6 +21,8 @@ public class ModConfigs {
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> crystals;
     public static ForgeConfigSpec.ConfigValue<List<? extends String>> bloodrunes;
 
+    public static ForgeConfigSpec.IntValue portalOffset;
+
     public static ForgeConfigSpec register(ForgeConfigSpec.Builder builder) {
         builder.push("ocean_monument").comment("Ocean Monument Tweaks");
         oceanMonumentTrophyReplacement = builder.define("trophy_room", "minecraft:gold_block");
@@ -51,7 +53,10 @@ public class ModConfigs {
             .defineListAllowEmpty(Lists.newArrayList("bloodrune"),
                 () -> getDefaultComponentList(ComponentType.BLOODRUNE), ModConfigs::isValidBlockString
             );
+        builder.pop();
 
+        builder.push("end");
+        portalOffset = builder.comment("End Portal Y Offset").defineInRange("portal_offset", -1, -100, 100);
         builder.pop();
         return builder.build();
     }
